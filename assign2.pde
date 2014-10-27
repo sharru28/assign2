@@ -131,7 +131,8 @@ void draw(){
          
          
          // car1 hitTest
-         if (abs(frogCX-leftCar1X)<(leftCar1W/2) && abs(frogCY-leftCar1Y)<(leftCar1H/2)){
+        
+         if ((frogCX>leftCar1X)&&(frogCX<leftCar1X+32)&&(frogCY>leftCar1Y)&&(frogCY<leftCar1Y+32)){
           currentTime = millis();
           image(imgDeadFrog, frogX, frogY);
           life--;
@@ -141,7 +142,7 @@ void draw(){
        
          // car2 hitTest
          
-          if (abs(frogCX-leftCar2X)<(leftCar2W/2) && abs(frogCY-leftCar2Y)<(leftCar2H/2)){
+          if ((frogCX>leftCar2X)&&(frogCX<leftCar2X+32)&&(frogCY>leftCar2Y)&&(frogCY<leftCar2Y+32)){
            currentTime = millis();
           image(imgDeadFrog, frogX, frogY);
           life--;
@@ -150,7 +151,7 @@ void draw(){
          }
          // car3 hitTest
          
-          if (abs(frogCX-rightCar1X)<(rightCar1W/2) && abs(frogCY-rightCar1Y)<(rightCar1H/2)){
+         if ((frogCX>rightCar1X)&&(frogCX<rightCar1X+32)&&(frogCY>rightCar1Y)&&(frogCY<rightCar1Y+32)){
            currentTime = millis();
           image(imgDeadFrog, frogX, frogY);
           life--;
@@ -159,7 +160,7 @@ void draw(){
          }
          // car4 hitTest
          
-          if (abs(frogCX-rightCar2X)<(rightCar2W/2) && abs(frogCY-rightCar2Y)<(rightCar2H/2)){
+          if ((frogCX>rightCar2X)&&(frogCX<rightCar2X+32)&&(frogCY>rightCar2Y)&&(frogCY<rightCar2Y+32)){
            currentTime = millis();
           image(imgDeadFrog, frogX, frogY);
           life--;
@@ -196,34 +197,38 @@ void keyPressed() {
       switch (keyCode)
       {
         case UP:
-        frogY -= 5;
+        frogY -= 32;
         if (frogY < 0 ){
-          frogY = 480;
+          frogY = 0;
         }
         break;
         
         case DOWN:
-        frogY +=5;  
+        frogY +=32;  
+        if (frogY >= height){
+          frogY = height -32;
+        }
         break;
         
         case LEFT:
-        frogX -=5;
+        frogX -=32;
         if (frogX < 0){
-          frogX = width;
+          frogX = 0;
         }
         break;
         
         case RIGHT:
-        frogX +=5;
+        frogX +=32;
         if (frogX > width){
-          frogX = 0;
+          frogX = width -16;
         }
         break;
       }
         
 
     }
-    if(key==ENTER /*still needs something*/){
+    if(key==ENTER && gameState!=GAME_RUN){
+      
       gameState = GAME_RUN;
       life=3;
       frogX = frogInitX;
